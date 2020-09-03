@@ -52,10 +52,6 @@ const parseInput = (args: Array<string>): Array<number> => {
   return parsedArr;
 };
 
-try {
-  const input = process.argv;
-  const arr = parseInput(input);
-  console.log(calculateExercises(arr.slice(1), arr[0]));
-} catch (error) {
-  console.log(error.message);
-}
+const input = process.argv;
+const arr = parseInput(input);
+console.log(calculateExercises(arr.slice(1), arr[0]));
