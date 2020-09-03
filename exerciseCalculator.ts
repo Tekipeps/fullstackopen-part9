@@ -15,14 +15,17 @@ interface Rating {
 
 const rate = (average: number, target: number): Rating => {
   if (average < target / 2) {
-    return { rating: 1, ratingDescription: "very poor try harder" };
+    return { rating: 1, ratingDescription: "bad" };
   } else if (average < target) {
     return { rating: 2, ratingDescription: "not too bad but could be better" };
   } else {
     return { rating: 3, ratingDescription: "Excellent! good job" };
   }
 };
-const calculateExercises = (hours: Array<number>, target: number): Result => {
+export const calculateExercises = (
+  hours: Array<number>,
+  target: number
+): Result => {
   const periodLength = hours.length;
   const trainingDays = hours.filter((hour) => hour !== 0).length;
   const average =
@@ -41,8 +44,6 @@ const calculateExercises = (hours: Array<number>, target: number): Result => {
     average,
   };
 };
-
-// console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
 const parseInput = (args: Array<string>): Array<number> => {
   if (args.length < 3) throw new Error("Too few arguments");
   const parsedArr = args.slice(2).map((a) => {
@@ -51,7 +52,9 @@ const parseInput = (args: Array<string>): Array<number> => {
   });
   return parsedArr;
 };
-
-const input = process.argv;
-const arr = parseInput(input);
-console.log(calculateExercises(arr.slice(1), arr[0]));
+// console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+if (require.main === module) {
+  const input = process.argv;
+  const arr = parseInput(input);
+  console.log(calculateExercises(arr.slice(1), arr[0]));
+}
