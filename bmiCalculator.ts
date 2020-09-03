@@ -2,7 +2,15 @@ interface BmiValues {
   height: number;
   weight: number;
 }
-const parseArguments = (args: Array<string>): BmiValues => {
+export const parseArguments = (args: Array<any>): BmiValues => {
+  if (args.length === 2) {
+    if (isNaN(Number(args[0])) || isNaN(Number(args[1])))
+      throw new Error("malformatted parameters");
+    return {
+      height: Number(args[0]),
+      weight: Number(args[1]),
+    };
+  }
   if (args.length < 4) throw new Error("Too few arguments");
   if (args.length > 4) throw new Error("Too many arguments");
 
@@ -16,7 +24,7 @@ const parseArguments = (args: Array<string>): BmiValues => {
   }
 };
 
-const calculateBmi = (data: BmiValues): string => {
+export const calculateBmi = (data: BmiValues): string => {
   const bmi = data.weight / (data.height / 100) ** 2;
   if (bmi < 15) {
     return "Very severely underweight	";
@@ -37,4 +45,10 @@ const calculateBmi = (data: BmiValues): string => {
   }
 };
 
-console.log(calculateBmi(parseArguments(process.argv)));
+if (require.main === module) {
+  try {
+    console.log(calculateBmi(parseArguments(process.argv)));
+  } catch (error) {
+    console.log(error.message);
+  }
+}
