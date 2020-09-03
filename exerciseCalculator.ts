@@ -42,4 +42,20 @@ const calculateExercises = (hours: Array<number>, target: number): Result => {
   };
 };
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+// console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+const parseInput = (args: Array<string>): Array<number> => {
+  if (args.length < 3) throw new Error("Too few arguments");
+  const parsedArr = args.slice(2).map((a) => {
+    if (isNaN(Number(a))) throw new Error("Invalid input, number required");
+    return Number(a);
+  });
+  return parsedArr;
+};
+
+try {
+  const input = process.argv;
+  const arr = parseInput(input);
+  console.log(calculateExercises(arr.slice(1), arr[0]));
+} catch (error) {
+  console.log(error.message);
+}
