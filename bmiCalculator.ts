@@ -2,7 +2,7 @@ interface BmiValues {
   height: number;
   weight: number;
 }
-export const parseArguments = (args: Array<any>): BmiValues => {
+export const parseArguments = (args: Array<string>): BmiValues => {
   if (args.length === 2) {
     if (isNaN(Number(args[0])) || isNaN(Number(args[1])))
       throw new Error("malformatted parameters");
@@ -46,9 +46,5 @@ export const calculateBmi = (data: BmiValues): string => {
 };
 
 if (require.main === module) {
-  try {
-    console.log(calculateBmi(parseArguments(process.argv)));
-  } catch (error) {
-    console.log(error.message);
-  }
+  console.log(calculateBmi(parseArguments(process.argv)));
 }
