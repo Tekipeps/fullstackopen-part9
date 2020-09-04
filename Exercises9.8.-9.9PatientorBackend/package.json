@@ -1,0 +1,13 @@
+{
+  "name": "Exercises9.8.-9.9PatientorBackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tstc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
