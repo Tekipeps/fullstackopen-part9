@@ -1,7 +1,14 @@
 import patientData from "../../data/patients.json";
-import { NonSensiitivePatientEntry, Patients } from "../../types";
+import {
+  NonSensitivePatientEntry,
+  Patients,
+  PatientEntry,
+  NewPatientEntry,
+} from "../../types";
 
-const getNonSensitivePatientEntry = (): NonSensiitivePatientEntry[] => {
+const stickyData: Patients = [...patientData];
+
+const getNonSensitivePatientEntry = (): NonSensitivePatientEntry[] => {
   return patientData.map(({ id, name, dateOfBirth, occupation, gender }) => ({
     id,
     name,
@@ -10,11 +17,18 @@ const getNonSensitivePatientEntry = (): NonSensiitivePatientEntry[] => {
     gender,
   }));
 };
-const getAllEntries = (): Patients => {
-  return patientData;
+
+const addPatient = (data: NewPatientEntry): NonSensitivePatientEntry => {
+  const newEntry: PatientEntry = {
+    ...data,
+    id: Math.round(Math.random() * 100000000).toString(),
+  };
+  stickyData.push(newEntry);
+  const { dateOfBirth, name, gender, occupation, id } = newEntry;
+  return { id, dateOfBirth, name, gender, occupation };
 };
 
 export default {
   getNonSensitivePatientEntry,
-  getAllEntries,
+  addPatient,
 };
