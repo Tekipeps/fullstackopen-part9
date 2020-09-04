@@ -5,3 +5,15 @@ export interface DiagnoseEntry {
 }
 export type Diagnoses = Array<DiagnoseEntry>;
 export type NonSensitiveDiagnoseEntry = Omit<DiagnoseEntry, "comment">;
+
+export interface PatientEntry {
+  id: string;
+  name: string;
+  dateOfBirth: string;
+  gender: string;
+  occupation: string;
+  ssn?: string;
+}
+
+export type Patients = Array<PatientEntry>;
+export type NonSensiitivePatientEntry = Omit<PatientEntry, "ssn">;
