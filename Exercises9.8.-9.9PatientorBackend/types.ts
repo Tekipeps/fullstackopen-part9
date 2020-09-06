@@ -9,6 +9,7 @@ export type NonSensitiveDiagnoseEntry = Omit<DiagnoseEntry, "comment">;
 export enum Gender {
   Male = "male",
   Female = "female",
+  Other = "other",
 }
 
 export interface PatientEntry {
