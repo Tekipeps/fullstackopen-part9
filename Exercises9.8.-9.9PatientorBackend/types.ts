@@ -6,6 +6,11 @@ export interface DiagnoseEntry {
 export type Diagnoses = Array<DiagnoseEntry>;
 export type NonSensitiveDiagnoseEntry = Omit<DiagnoseEntry, "comment">;
 
+export enum Gender {
+  Male = "male",
+  Female = "female",
+}
+
 export interface PatientEntry {
   id: string;
   name: string;

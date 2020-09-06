@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { NewPatientEntry } from "../types";
+import { NewPatientEntry, Gender } from "../types";
 
 export const toNewPatientEntry = (object: any): NewPatientEntry => {
   const isString = (data: any): boolean => {
@@ -12,15 +12,17 @@ export const toNewPatientEntry = (object: any): NewPatientEntry => {
   const isDate = (date: any): boolean => {
     return Boolean(Date.parse(date));
   };
-
+  const isGender = (param: any): param is Gender => {
+    return Object.values(Gender).includes(param);
+  };
   const parseDate = (date: any): string => {
     if (!date || !isString(date) || !isDate(date)) {
       throw new Error("Incorrect or missing date: " + date);
     }
     return date;
   };
-  const parseGender = (gender: any) => {
-    if (!(gender === "male" || gender === "female")) {
+  const parseGender = (gender: any): Gender => {
+    if (!gender || !isGender(gender)) {
       throw new Error("Invalid or missing gender: " + gender);
     }
     return gender;
