@@ -1,6 +1,7 @@
 import express from "express";
 import service from "../services/patientService";
-import { NonSensitivePatientEntry } from "../../types";
+import { NonSensitivePatientEntry, NewPatientEntry } from "../../types";
+import { toNewPatientEntry } from "../utils";
 
 const router = express.Router();
 
@@ -9,11 +10,23 @@ router.get("/", (_req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { name, ssn, dateOfBirth, occupation, gender } = req.body;
-  const data = { name, ssn, dateOfBirth, occupation, gender };
-  const newPatient: NonSensitivePatientEntry = service.addPatient(data);
-  console.log(newPatient);
-  res.json(newPatient);
+  try {
+    const { name, ssn, dateOfBirth, occupation, gender } = toNewPatientEntry(
+      req.body
+    );
+    const data: NewPatientEntry = {
+      name,
+      ssn,
+      dateOfBirth,
+      occupation,
+      gender,
+    };
+    const newPatient: NonSensitivePatientEntry = service.addPatient(data);
+    res.json(newPatient);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ error: error.message });
+  }
 });
 
 export default router;
