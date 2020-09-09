@@ -2,19 +2,26 @@
 
 import { NewPatientEntry, Gender } from "../types";
 
+const isString = (data: any): boolean => {
+  return typeof data === "string" || data instanceof String;
+};
+const canBeNum = (data: any): boolean => {
+  return !isNaN(Number(data));
+};
+const isDate = (date: any): boolean => {
+  return Boolean(Date.parse(date));
+};
+const isGender = (param: any): param is Gender => {
+  return Object.values(Gender).includes(param);
+};
+export const isId = (param: any): string => {
+  if (!param || !isString(param)) {
+    throw new Error("Invalid id");
+  }
+  return param;
+};
+
 export const toNewPatientEntry = (object: any): NewPatientEntry => {
-  const isString = (data: any): boolean => {
-    return typeof data === "string" || data instanceof String;
-  };
-  const canBeNum = (data: any): boolean => {
-    return !isNaN(Number(data));
-  };
-  const isDate = (date: any): boolean => {
-    return Boolean(Date.parse(date));
-  };
-  const isGender = (param: any): param is Gender => {
-    return Object.values(Gender).includes(param);
-  };
   const parseDate = (date: any): string => {
     if (!date || !isString(date) || !isDate(date)) {
       throw new Error("Incorrect or missing date: " + date);

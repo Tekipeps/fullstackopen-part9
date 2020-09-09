@@ -1,7 +1,7 @@
 import express from "express";
 import service from "../services/patientService";
 import { NonSensitivePatientEntry, NewPatientEntry } from "../../types";
-import { toNewPatientEntry } from "../utils";
+import { toNewPatientEntry, isId } from "../utils";
 
 const router = express.Router();
 
@@ -27,6 +27,24 @@ router.post("/", (req, res) => {
     console.log(error);
     res.status(400).json({ error: error.message });
   }
+});
+
+router.get("/:id", (req, res) => {
+  const validId = isId(req.params.id);
+  const data = service.getPatient(validId);
+  if (!data) {
+    return res
+      .status(400)
+      .json({ error: "person with this id does not exist" });
+  }
+  const {
+    id,
+    name,
+    dateOfBirth,
+    gender,
+    occupation,
+  }: NonSensitivePatientEntry = data;
+  return res.send({ id, name, dateOfBirth, gender, occupation });
 });
 
 export default router;

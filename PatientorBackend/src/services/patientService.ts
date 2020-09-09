@@ -28,7 +28,13 @@ const addPatient = (data: NewPatientEntry): NonSensitivePatientEntry => {
   return { id, dateOfBirth, name, gender, occupation };
 };
 
+const getPatient = (id: string): PatientEntry | undefined => {
+  const data = stickyData.find((patient) => patient.id === id);
+  return data;
+};
+
 export default {
   getNonSensitivePatientEntry,
   addPatient,
+  getPatient,
 };
