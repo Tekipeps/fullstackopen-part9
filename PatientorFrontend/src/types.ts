@@ -4,7 +4,13 @@ export interface Diagnosis {
   latin?: string;
 }
 
-interface Entry {}
+interface BaseEntry {
+  id: string;
+  description: string;
+  date: string;
+  specialist: string;
+  diagnosisCodes?: string[];
+}
 
 export enum Gender {
   Male = "male",
@@ -23,5 +29,5 @@ export interface Patient {
 
 export interface SinglePatient extends Patient {
   ssn: string;
-  entries: Entry[];
+  entries: [];
 }
