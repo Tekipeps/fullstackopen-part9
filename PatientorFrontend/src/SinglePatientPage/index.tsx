@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { apiBaseUrl } from "../constants";
 import { useParams } from "react-router-dom";
-import { SinglePatient } from "../types";
+import { SinglePatient, Entry } from "../types";
 import { useStateValue } from "../state";
 import { Header, Icon } from "semantic-ui-react";
 import { addSinglePatient } from "../state/reducer";
@@ -46,6 +46,20 @@ const SinglePatientPage: React.FC = () => {
       </Header>
       <p>ssn: {patient?.ssn}</p>
       <p>occupation: {patient?.occupation}</p>
+      <Header as="h3">entries</Header>
+      {patient?.entries.map((e: Entry) => (
+        <div key={e.id}>
+          {" "}
+          <p>
+            {e.date} {e.description}
+          </p>
+          <ul>
+            {e.diagnosisCodes?.map((c, i) => (
+              <li key={i}>{c}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </div>
   );
 };
