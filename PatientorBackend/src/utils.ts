@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { NewPatientEntry, Gender } from "../types";
+import { NewPatient, Gender } from "./types";
 
 const isString = (data: any): boolean => {
   return typeof data === "string" || data instanceof String;
@@ -21,7 +21,7 @@ export const isId = (param: any): string => {
   return param;
 };
 
-export const toNewPatientEntry = (object: any): NewPatientEntry => {
+export const toNewPatient = (object: any): NewPatient => {
   const parseDate = (date: any): string => {
     if (!date || !isString(date) || !isDate(date)) {
       throw new Error("Incorrect or missing date: " + date);
@@ -46,14 +46,11 @@ export const toNewPatientEntry = (object: any): NewPatientEntry => {
     }
     return occupation;
   };
-  const parseSsn = (ssn: any): string | undefined => {
-    if (ssn && canBeNum(ssn)) {
-      return ssn;
-    }
+  const parseSsn = (ssn: any): string => {
     if (ssn && !canBeNum(ssn)) {
       throw new Error("Invalid ssn");
     }
-    return undefined;
+    return ssn;
   };
   return {
     dateOfBirth: parseDate(object.dateOfBirth),
@@ -61,5 +58,6 @@ export const toNewPatientEntry = (object: any): NewPatientEntry => {
     name: parseName(object.name),
     occupation: parseOccupation(object.occupation),
     ssn: parseSsn(object.ssn),
+    entries: [],
   };
 };

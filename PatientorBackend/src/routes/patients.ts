@@ -1,27 +1,33 @@
 import express from "express";
 import service from "../services/patientService";
-import { NonSensitivePatientEntry, NewPatientEntry } from "../../types";
-import { toNewPatientEntry, isId } from "../utils";
+import { PublicPatient, NewPatient, Patient } from "../types";
+import { toNewPatient, isId } from "../utils";
 
 const router = express.Router();
 
 router.get("/", (_req, res) => {
-  res.json(service.getNonSensitivePatientEntry());
+  res.json(service.getPublicPatients());
 });
 
 router.post("/", (req, res) => {
   try {
-    const { name, ssn, dateOfBirth, occupation, gender } = toNewPatientEntry(
-      req.body
-    );
-    const data: NewPatientEntry = {
+    const {
       name,
       ssn,
       dateOfBirth,
       occupation,
       gender,
+      entries,
+    } = toNewPatient(req.body);
+    const data: NewPatient = {
+      name,
+      ssn,
+      dateOfBirth,
+      occupation,
+      gender,
+      entries,
     };
-    const newPatient: NonSensitivePatientEntry = service.addPatient(data);
+    const newPatient: PublicPatient = service.addPatient(data);
     res.json(newPatient);
   } catch (error) {
     console.log(error);
@@ -43,8 +49,10 @@ router.get("/:id", (req, res) => {
     dateOfBirth,
     gender,
     occupation,
-  }: NonSensitivePatientEntry = data;
-  return res.send({ id, name, dateOfBirth, gender, occupation });
+    ssn,
+    entries,
+  }: Patient = data;
+  return res.send({ id, name, dateOfBirth, gender, occupation, ssn, entries });
 });
 
 export default router;

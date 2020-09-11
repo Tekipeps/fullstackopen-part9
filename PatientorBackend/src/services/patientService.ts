@@ -1,14 +1,9 @@
-import patientData from "../../data/patients.json";
-import {
-  NonSensitivePatientEntry,
-  Patients,
-  PatientEntry,
-  NewPatientEntry,
-} from "../../types";
+import patientData from "../../data/patients";
+import { PublicPatient, Patients, Patient, NewPatient } from "../types";
 
 const stickyData: Patients = [...patientData];
 
-const getNonSensitivePatientEntry = (): NonSensitivePatientEntry[] => {
+const getPublicPatients = (): PublicPatient[] => {
   return patientData.map(({ id, name, dateOfBirth, occupation, gender }) => ({
     id,
     name,
@@ -18,9 +13,10 @@ const getNonSensitivePatientEntry = (): NonSensitivePatientEntry[] => {
   }));
 };
 
-const addPatient = (data: NewPatientEntry): NonSensitivePatientEntry => {
-  const newEntry: PatientEntry = {
+const addPatient = (data: NewPatient): PublicPatient => {
+  const newEntry: Patient = {
     ...data,
+    entries: [],
     id: Math.round(Math.random() * 100000000).toString(),
   };
   stickyData.push(newEntry);
@@ -28,13 +24,13 @@ const addPatient = (data: NewPatientEntry): NonSensitivePatientEntry => {
   return { id, dateOfBirth, name, gender, occupation };
 };
 
-const getPatient = (id: string): PatientEntry | undefined => {
+const getPatient = (id: string): Patient | undefined => {
   const data = stickyData.find((patient) => patient.id === id);
   return data;
 };
 
 export default {
-  getNonSensitivePatientEntry,
+  getPublicPatients,
   addPatient,
   getPatient,
 };
