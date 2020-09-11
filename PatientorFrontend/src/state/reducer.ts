@@ -3,7 +3,7 @@ import { Patient, SinglePatient } from "../types";
 
 export type Action =
   | {
-      type: "UPDATE_PATIENT";
+      type: "ADD_SINGLE_PATIENT";
       payload: SinglePatient;
     }
   | {
@@ -33,6 +33,14 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         patients: {
           ...state.patients,
+          [action.payload.id]: action.payload,
+        },
+      };
+    case "ADD_SINGLE_PATIENT":
+      return {
+        ...state,
+        singlePatients: {
+          ...state.singlePatients,
           [action.payload.id]: action.payload,
         },
       };
