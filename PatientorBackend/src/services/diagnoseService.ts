@@ -1,10 +1,15 @@
 import diagnoseData from "../../data/diagnoses.json";
-import { Diagnoses } from "../types";
+import { Diagnosis } from "../types";
 
-const getAllEntries = (): Diagnoses => {
+const getAllEntries = (): Diagnosis[] => {
   return diagnoseData;
 };
 
+const getSingleEntry = (code: string): Diagnosis | undefined => {
+  return diagnoseData.find((d) => d.code === code);
+};
+
 export default {
+  getSingleEntry,
   getAllEntries,
 };

@@ -21,6 +21,13 @@ export const isId = (param: any): string => {
   return param;
 };
 
+export const toDiagnoseCode = (code: any): string => {
+  if (!code || !isString(code)) {
+    throw new Error(`Cannot find a diagnosis with the code: ${code}`);
+  }
+  return code;
+};
+
 export const toNewPatient = (object: any): NewPatient => {
   const parseDate = (date: any): string => {
     if (!date || !isString(date) || !isDate(date)) {

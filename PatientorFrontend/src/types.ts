@@ -54,5 +54,5 @@ export interface Patient {
 
 export interface SinglePatient extends Patient {
   ssn: string;
-  entries: [];
+  entries: Entry[];
 }

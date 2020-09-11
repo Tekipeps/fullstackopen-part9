@@ -6,6 +6,7 @@ import { SinglePatient, Entry } from "../types";
 import { useStateValue } from "../state";
 import { Header, Icon } from "semantic-ui-react";
 import { addSinglePatient } from "../state/reducer";
+import EntryCodes from "./EntryCodes";
 
 const SinglePatientPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,11 +35,13 @@ const SinglePatientPage: React.FC = () => {
     }
   }, [id, dispatch, singlePatients]);
 
+  if (!patient) return null;
+
   return (
     <div>
       <Header as="h2">
-        {patient?.name}{" "}
-        {patient?.gender === "male" ? (
+        {patient.name}{" "}
+        {patient.gender === "male" ? (
           <Icon name="mars" />
         ) : (
           <Icon name="venus" />
@@ -47,16 +50,14 @@ const SinglePatientPage: React.FC = () => {
       <p>ssn: {patient?.ssn}</p>
       <p>occupation: {patient?.occupation}</p>
       <Header as="h3">entries</Header>
-      {patient?.entries.map((e: Entry) => (
+      {patient.entries.map((e: Entry) => (
         <div key={e.id}>
           {" "}
           <p>
             {e.date} {e.description}
           </p>
           <ul>
-            {e.diagnosisCodes?.map((c, i) => (
-              <li key={i}>{c}</li>
-            ))}
+            <EntryCodes codes={e.diagnosisCodes} />
           </ul>
         </div>
       ))}
