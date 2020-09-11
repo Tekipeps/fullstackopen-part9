@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { SinglePatient } from "../types";
 import { useStateValue } from "../state";
 import { Header, Icon } from "semantic-ui-react";
+import { addSinglePatient } from "../state/reducer";
 
 const SinglePatientPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,7 +17,7 @@ const SinglePatientPage: React.FC = () => {
         const { data: singlePatient } = await axios.get<SinglePatient>(
           `${apiBaseUrl}/patients/${id}`
         );
-        dispatch({ type: "ADD_SINGLE_PATIENT", payload: singlePatient });
+        dispatch(addSinglePatient(singlePatient));
       } catch (error) {
         console.log(error);
       }
@@ -43,6 +44,8 @@ const SinglePatientPage: React.FC = () => {
           <Icon name="venus" />
         )}
       </Header>
+      <p>ssn: {patient?.ssn}</p>
+      <p>occupation: {patient?.occupation}</p>
     </div>
   );
 };
