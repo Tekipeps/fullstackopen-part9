@@ -7,9 +7,11 @@ const OccupationalHealthCareEntry: React.FC<{
 }> = ({ entry }) => {
   return (
     <Card>
-      <p>{entry.date}</p>
+      <p>
+        {entry.date} {entry.employerName}
+      </p>
       <p>{entry.description}</p>
-      <p>{entry.employerName}</p>
+      <p></p>
     </Card>
   );
 };

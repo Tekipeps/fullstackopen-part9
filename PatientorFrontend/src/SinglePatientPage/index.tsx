@@ -4,7 +4,7 @@ import { apiBaseUrl } from "../constants";
 import { useParams } from "react-router-dom";
 import { SinglePatient, Entry } from "../types";
 import { useStateValue } from "../state";
-import { Header, Icon } from "semantic-ui-react";
+import { Header, Icon, Card } from "semantic-ui-react";
 import { addSinglePatient } from "../state/reducer";
 // import EntryCodes from "./EntryCodes";
 import EntryDetails from "./EntryDetails";
@@ -51,9 +51,11 @@ const SinglePatientPage: React.FC = () => {
       <p>ssn: {patient?.ssn}</p>
       <p>occupation: {patient?.occupation}</p>
       <Header as="h3">entries</Header>
-      {patient.entries.map((e: Entry) => (
-        <EntryDetails entry={e} key={e.id} />
-      ))}
+      <Card.Group>
+        {patient.entries.map((e: Entry) => (
+          <EntryDetails entry={e} key={e.id} />
+        ))}
+      </Card.Group>
     </div>
   );
 };
