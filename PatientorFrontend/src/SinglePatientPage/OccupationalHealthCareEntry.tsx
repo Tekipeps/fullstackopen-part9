@@ -8,7 +8,8 @@ const OccupationalHealthCareEntry: React.FC<{
   return (
     <>
       <p>
-        {entry.date} <Icon name={"stethoscope"} /> {entry.employerName}
+        {entry.date} <Icon name={"stethoscope"} size="large" />{" "}
+        {entry.employerName}
       </p>
       <p>{entry.description}</p>
     </>

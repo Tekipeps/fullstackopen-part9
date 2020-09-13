@@ -6,7 +6,7 @@ const HospitalEntry: React.FC<{ entry: Hospital }> = ({ entry }) => {
   return (
     <>
       <p>
-        {entry.date} <Icon name="hospital" /> {entry.specialist}
+        {entry.date} <Icon name="hospital" size="large" /> {entry.specialist}
       </p>
       <p>{entry.description}</p>
       {entry.discharge.date}

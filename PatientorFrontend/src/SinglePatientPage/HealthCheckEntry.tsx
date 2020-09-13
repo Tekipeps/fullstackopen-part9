@@ -6,7 +6,7 @@ const HealthCheckEntry: React.FC<{ entry: HealthCheck }> = ({ entry }) => {
   return (
     <>
       <p>
-        {entry.date} <Icon name="doctor" /> {entry.specialist}
+        {entry.date} <Icon name="doctor" size="large" /> {entry.specialist}
       </p>
       <p>{entry.description}</p>
       {entry.healthCheckRating}
