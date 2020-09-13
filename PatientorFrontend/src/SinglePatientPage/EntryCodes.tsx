@@ -3,7 +3,6 @@ import axios from "axios";
 import { Diagnosis } from "../types";
 import { apiBaseUrl } from "../constants";
 import { useStateValue, setDiagnosisList } from "../state";
-import { Card } from "semantic-ui-react";
 
 const EntryCodes: React.FC<{ codes: Array<Diagnosis["code"]> | undefined }> = ({
   codes,
@@ -19,15 +18,15 @@ const EntryCodes: React.FC<{ codes: Array<Diagnosis["code"]> | undefined }> = ({
 
   if (!codes) return null;
   return (
-    <Card.Group>
+    <ul>
       {Object.values(diagnoses).map((d) =>
         codes.includes(d.code) ? (
-          <Card fluid key={d.code}>
+          <li key={d.code}>
             {d.code} {d.name}
-          </Card>
+          </li>
         ) : null
       )}
-    </Card.Group>
+    </ul>
   );
 };
 

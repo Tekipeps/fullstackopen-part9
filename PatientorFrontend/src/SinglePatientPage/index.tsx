@@ -4,10 +4,10 @@ import { apiBaseUrl } from "../constants";
 import { useParams } from "react-router-dom";
 import { SinglePatient, Entry } from "../types";
 import { useStateValue } from "../state";
-import { Header, Icon, Card } from "semantic-ui-react";
+import { Header, Icon, Segment } from "semantic-ui-react";
 import { addSinglePatient } from "../state/reducer";
-// import EntryCodes from "./EntryCodes";
 import EntryDetails from "./EntryDetails";
+import EntryCodes from "./EntryCodes";
 
 const SinglePatientPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -51,11 +51,16 @@ const SinglePatientPage: React.FC = () => {
       <p>ssn: {patient?.ssn}</p>
       <p>occupation: {patient?.occupation}</p>
       <Header as="h3">entries</Header>
-      <Card.Group>
-        {patient.entries.map((e: Entry) => (
-          <EntryDetails entry={e} key={e.id} />
-        ))}
-      </Card.Group>
+
+      {patient.entries.map((e: Entry) => (
+        <Segment key={e.id}>
+          <EntryDetails entry={e} />
+        </Segment>
+      ))}
+
+      {patient.entries.map((e: Entry) => (
+        <EntryCodes key={e.id} codes={e.diagnosisCodes} />
+      ))}
     </div>
   );
 };
