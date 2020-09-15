@@ -1,5 +1,13 @@
 import patientData from "../../data/patients";
-import { PublicPatient, Patients, Patient, NewPatient } from "../types";
+import { v4 as uuid } from "uuid";
+import {
+  PublicPatient,
+  Patients,
+  Patient,
+  NewPatient,
+  Entry,
+  NewEntry,
+} from "../types";
 
 const stickyData: Patients = [...patientData];
 
@@ -29,8 +37,25 @@ const getPatient = (id: string): Patient | undefined => {
   return data;
 };
 
+const addEntry = (id: string, newEntry: NewEntry): Entry => {
+  const date = new Date();
+  const entry = {
+    id: uuid(),
+    ...newEntry,
+    date: date.toDateString(),
+  };
+  stickyData.map((p) => {
+    if (p.id === id) {
+      return { ...p, entries: [...p.entries, entry] };
+    }
+    return p;
+  });
+  return entry;
+};
+
 export default {
   getPublicPatients,
   addPatient,
   getPatient,
+  addEntry,
 };

@@ -29,10 +29,10 @@ const SinglePatientPage: React.FC = () => {
         (p) => p.id === id
       );
       setPatient(foundPatient);
-      console.log("gotten from state");
+      // console.log("gotten from state");
     } else {
       getPatient();
-      console.log("gotten from api");
+      // console.log("gotten from api");
     }
   }, [id, dispatch, singlePatients]);
 
