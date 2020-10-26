@@ -56,3 +56,9 @@ export interface SinglePatient extends Patient {
   ssn: string;
   entries: Entry[];
 }
+
+export enum EntryType {
+  HospitalEntry = "Hospital",
+  OccupationalHealthcareEntry = "OccupationalHealthcare",
+  HealthCheckEntry = "HealthCheck"
+}

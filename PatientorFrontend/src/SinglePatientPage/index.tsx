@@ -4,15 +4,19 @@ import { apiBaseUrl } from "../constants";
 import { useParams } from "react-router-dom";
 import { SinglePatient, Entry } from "../types";
 import { useStateValue } from "../state";
-import { Header, Icon, Segment } from "semantic-ui-react";
+import { Header, Icon, Segment, Button } from "semantic-ui-react";
 import { addSinglePatient } from "../state/reducer";
 import EntryDetails from "./EntryDetails";
 import EntryCodes from "./EntryCodes";
+import NewEntryModal from "../NewEntryModal";
 
 const SinglePatientPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [{ singlePatients }, dispatch] = useStateValue();
+  const [error, setError] = useState<string | undefined>();
   const [patient, setPatient] = useState<SinglePatient | undefined>();
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+
   React.useEffect(() => {
     const getPatient = async () => {
       try {
@@ -37,6 +41,10 @@ const SinglePatientPage: React.FC = () => {
   }, [id, dispatch, singlePatients]);
 
   if (!patient) return null;
+  const openModal = (): void => setModalOpen(true);
+
+  const closeModal = (): void => {setModalOpen(false); setError(undefined)};
+  const submitNewEntry = (): void => {};
 
   return (
     <div>
@@ -65,6 +73,13 @@ const SinglePatientPage: React.FC = () => {
       {patient.entries.map((e: Entry) => (
         <EntryCodes key={e.id} codes={e.diagnosisCodes} />
       ))}
+      <NewEntryModal
+        modalOpen={modalOpen}
+        onClose={closeModal}
+        onSubmit={submitNewEntry}
+        error={error}
+      />
+      <Button onClick={() => openModal()}>new entry</Button>
     </div>
   );
 };
